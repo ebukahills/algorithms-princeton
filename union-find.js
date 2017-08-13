@@ -13,8 +13,20 @@ let joined = [
   [6, 7],
 ]
 
-class UF {
-  constructor(n) {
-    this.N = n
+function UF(n) {
+  this.N = Number(n) || 0
+  // Set id of each object to itself (N array accesses)
+  let id = Array(this.N).fill(undefined).map((u, i) => i)
+
+  this.connected = (p, q) => id[p] === id[q]
+
+  this.union = (p, q) => {
+    let pid = id[p]
+    let qid = id[q]
+    for (let i = 0; i < id.length; i++) {
+      if (id[i] === pid) {
+        id[i] = qid
+      }
+    }
   }
 }
